@@ -1,0 +1,62 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build output
+.next/
+out/
+dist/
+build/
+
+# Server build output (Express/Node backend)
+server/dist/
+server/build/
+
+# Local environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+logs/*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage (test reports)
+coverage/
+*.lcov
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.bak
+*.tmp
+
+# Prisma (if you use it)
+prisma/migrations/
+
+# MongoDB data dumps
+dump/
+
+# Next.js cache
+.next/cache/
