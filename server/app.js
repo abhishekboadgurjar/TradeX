@@ -46,17 +46,21 @@ const isTradingHour = () => {
 
 const app = express();
 
-app.use(cors());
-
 app.use(express.json());
+app.use(cors({
+  origin: ["http://localhost:3000", "http://localhost:5173", "http://localhost:3001"],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "access_token"],
+  credentials: true,
+}));
 
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.WEBSERVER_URI || "https://localhost:3001",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["access_token"],
+ cors: {
+    origin: ["http://localhost:3000", "http://localhost:5173", "http://localhost:3001"],
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "access_token"],
     credentials: true,
   },
 });
