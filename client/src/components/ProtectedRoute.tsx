@@ -7,6 +7,8 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const user = useAuthStore((state) => state.user);
   const router = useRouter();
 
+
+  
   useEffect(() => {
     if (!user) router.push("/auth/login");
   }, [user]);
