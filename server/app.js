@@ -48,7 +48,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:5173", "http://localhost:3001"],
+  origin: ["http://localhost:3000", "http://localhost:5173", "http://localhost:3001","http://192.168.0.9:3000","http://192.168.0.9:5173","http://192.168.0.9:3001","http://192.168.0.9:8081"],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "access_token"],
   credentials: true,
@@ -58,7 +58,7 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
  cors: {
-    origin: ["http://localhost:3000", "http://localhost:5173", "http://localhost:3001"],
+    origin: ["http://localhost:3000", "http://localhost:5173", "http://localhost:3001","http://192.168.0.9:3000","http://192.168.0.9:5173","http://192.168.0.9:3001","http://192.168.0.9:8081"],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "access_token"],
     credentials: true,
@@ -107,7 +107,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`Client ${socket.id} disconnected`);
   });
-});
+});236211
 
 update10minCandle();
 generateRandomDataEvery5Second(io);

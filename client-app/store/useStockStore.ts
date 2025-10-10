@@ -1,10 +1,8 @@
-
-
-// store/useStockStore.ts
+// stores/useStockStore.ts
 import { create } from "zustand";
 import axiosInstance from "../lib/axios"; // for auth APIs (access token)
 import axiosTrading from "../lib/axiosTrading"; // for trading APIs (socket token)
-import Cookies from "js-cookie";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // ----- Interfaces -----
 interface Stock {
@@ -61,7 +59,7 @@ export const useStockStore = create<StockState>((set, get) => ({
   fetchStocks: async () => {
     try {
       set({ loading: true, error: null });
-      const res = await axiosInstance.get("/stocks"); // uses access token
+      const res = await axiosInstance.get("/stocks");
       set({ stocks: res.data.data, loading: false });
     } catch (err: any) {
       set({
@@ -75,7 +73,7 @@ export const useStockStore = create<StockState>((set, get) => ({
   fetchHoldings: async () => {
     try {
       set({ loading: true, error: null });
-      const res = await axiosTrading.get("/stocks/holding"); // uses socket token
+      const res = await axiosTrading.get("/stocks/holding");
       set({ holdings: res.data.data, loading: false });
     } catch (err: any) {
       set({
@@ -89,7 +87,7 @@ export const useStockStore = create<StockState>((set, get) => ({
   fetchOrders: async () => {
     try {
       set({ loading: true, error: null });
-      const res = await axiosTrading.get("/stocks/order"); // uses socket token
+      const res = await axiosTrading.get("/stocks/order");
       set({ orders: res.data.data, loading: false });
     } catch (err: any) {
       set({
@@ -103,7 +101,7 @@ export const useStockStore = create<StockState>((set, get) => ({
   getStockBySymbol: async (symbol: string) => {
     try {
       set({ loading: true, error: null });
-      const res = await axiosTrading.get(`/stocks/stock?stock=${symbol}`); // socket token
+      const res = await axiosTrading.get(`/stocks/stock?stock=${symbol}`);
       set({ loading: false });
       return res.data.data;
     } catch (err: any) {
@@ -116,7 +114,7 @@ export const useStockStore = create<StockState>((set, get) => ({
   buyStock: async (stock_id, quantity) => {
     try {
       set({ loading: true, error: null });
-      await axiosTrading.post("/stocks/buy", { stock_id, quantity }); // socket token
+      await axiosTrading.post("/stocks/buy", { stock_id, quantity });
       await get().fetchHoldings();
       await get().fetchOrders();
       set({ loading: false });
@@ -129,7 +127,7 @@ export const useStockStore = create<StockState>((set, get) => ({
   sellStock: async (holdingId, quantity) => {
     try {
       set({ loading: true, error: null });
-      await axiosTrading.post("/stocks/sell", { holdingId, quantity }); // socket token
+      await axiosTrading.post("/stocks/sell", { holdingId, quantity });
       await get().fetchHoldings();
       await get().fetchOrders();
       set({ loading: false });
